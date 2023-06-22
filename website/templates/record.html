@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Customer record{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<form method="POST">
+    {% csrf_token %}
+    <div class="container py-5 my-5 bg-white rounded">
+        <div class="card">
+            <div class="card-header">
+                <h2><strong>{{ customer_record.first_name }} {{ customer_record.last_name }}</strong></h2>
+            </div>
+            <div class="card-body">
+                <p class="card-text"><strong>ID: </strong>{{ customer_record.passport_no }}</p>
+                <p class="card-text"><strong>Email: </strong> {{ customer_record.email }} </p>
+                <p class="card-text"> <strong>Phone: </strong> {{ customer_record.phone }} </p>
+                <p class="card-text"><strong>City: </strong> {{ customer_record.city }} </p>
+                <p class="card-text"> <strong>Address: </strong> {{ customer_record.address }} </p>
+                <p class="card-text"> <strong>Zipcode: </strong>{{ customer_record.zipcode }} </p>
+                <p class="card-text"> <strong>Created_at: </strong>{{ customer_record.created_at }} </p>
+            </div>
+        </div>
+        <br>
+        <a href="{% url 'home' %}" class="btn btn-outline-primary btn-block rounded-pill">Back</a>
+        <a href="{% url 'home' %}" class="btn btn-outline-danger btn-block rounded-pill">Delete</a>
+
+
+
+    </div>
+</form>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Homepage{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<form method="POST">
+    {% csrf_token %}
+    <div class="container py-5 my-5 bg-white rounded">
+        <h1 class="text-primary text-center fw-bolder p-2">Customer relationship management (CRM)</h1>
+        <div class="table-responsive">
+            <table class="table table-striped align-middle table-bordered border-secondary">
+                <thead class="thead-dark bg-info">
+                <tr>
+                    <th scope="col">Passport No</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">City</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Zipcode</th>
+                </tr>
+            </thead>
+            <tbody >
+                {% for record in records %}
+                <tr id="row">
+                    <td><a href="{% url 'record' record.passport_no %}">{{ record.passport_no }}</a></td>
+                    <td>{{ record.first_name }}</td>
+                    <td>{{ record.last_name }}</td>
+                    <td>{{ record.email }}</td>
+                    <td>{{ record.phone }}</td>
+                    <td>{{ record.city }}</td>
+                    <td>{{ record.address }}</td>
+                    <td>{{ record.zipcode }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    </div>
+</form>
+{% endif %}
+{% endblock %}
