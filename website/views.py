@@ -64,7 +64,14 @@ def customer_record(request, pk):
         }
        return render(request, "record.html", context)
 
-      
+def customer_delete(request, pk):
+    if request.user.is_authenticated:
+       delete_it =Record.objects.get(passport_no=pk) 
+       delete_it.delete()
+       
+       return redirect('home')
+ 
+
 
 
 def logout_view(request):
