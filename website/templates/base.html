@@ -28,9 +28,7 @@
     <div class="container-fluid">
       {% if user.is_authenticated %}
       <a class="navbar-brand fw-bolder mx-5" href="{% url 'home' %}">CRM</a>
-      {% else %}
-      <a class="navbar-brand fw-bolder mx-5" href="{% url 'index' %}">CRM</a>
-      {% endif %}
+
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -41,23 +39,23 @@
             <a class="nav-link active px-3" aria-current="page" href="{% url 'home' %}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active px-3 text-success" aria-current="page" href="{% url 'add_customer' %}">Add Customers</a>
+            <a class="nav-link active px-3 text-success" aria-current="page" href="{% url 'add_customer' %}">Add
+              Customers</a>
           </li>
-          
         </ul>
-      
-      <div class="d-flex justify-content-end">
-        {% if user.is_authenticated %}
-
-        <a href="{% url 'home' %}"><button class="btn btn-outline-secondary text-danger rounded-pill"
-            type="button"><i class="bi bi-person-circle "></i> {{user}}</button></a>
-        <a href="{% url 'logout_view' %}"><i class="bi bi-box-arrow-in-right fs-4 text-dark ms-4 me-5"
-            title="Log Out"></i></a>
-            {% else %}
-            <a href="{% url 'register' %}"><button class="btn btn-outline-secondary rounded-pill me-5"
-              title="Register" type="button">Register</button></a>
-        {% endif %}
-      </div></div>
+        <div class="d-flex justify-content-end">
+          <a href="{% url 'home' %}"><button class="btn btn-outline-secondary text-danger rounded-pill" type="button"><i
+                class="bi bi-person-circle "></i> {{user}}</button></a>
+          <a href="{% url 'logout_view' %}"><i class="bi bi-box-arrow-in-right fs-4 text-dark ms-4 me-5"
+              title="Log Out"></i></a>
+        </div>
+      </div>
+      {% else %}
+      <a class="navbar-brand fw-bolder mx-5" href="{% url 'index' %}">CRM</a>
+      <div class="d-flex justify-content-end"><a href="{% url 'register' %}"><button
+            class="btn btn-outline-secondary rounded-pill me-5" title="Register" type="button">Register</button></a>
+      </div>
+      {% endif %}
     </div>
   </nav>
 

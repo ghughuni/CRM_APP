@@ -24,7 +24,7 @@
             <tbody >
                 {% for record in records %}
                 <tr id="row">
-                    <td><a href="{% url 'record' record.passport_no %}">{{ record.passport_no }}</a></td>
+                    <td><a href="{% url 'customer_record' record.passport_no %}">{{ record.passport_no }}</a></td>
                     <td>{{ record.first_name }}</td>
                     <td>{{ record.last_name }}</td>
                     <td>{{ record.email }}</td>

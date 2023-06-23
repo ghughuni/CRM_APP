@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
 from .models import Record
+from django.urls import reverse
 
 def home(request):
    records=Record.objects.all()
@@ -99,6 +100,30 @@ def add_customer(request):
             return redirect('home') 
 
         return render(request, 'add_customer.html')
+
+def update_customer(request, pk):
+    if request.user.is_authenticated:
+        update_cust = get_object_or_404(Record, passport_no=pk)
+
+        if request.method == 'POST':
+            form_data = request.POST
+            update_cust.passport_no = form_data['passport_no']
+            update_cust.first_name = form_data['first_name']
+            update_cust.last_name = form_data['last_name']
+            update_cust.email = form_data['email']
+            update_cust.phone = form_data['phone']
+            update_cust.city = form_data['city']
+            update_cust.address = form_data['address']
+            update_cust.zipcode = form_data['zipcode']
+            update_cust.save()
+
+            
+            return redirect(reverse('customer_record', args=[pk]))
+
+        context = {
+            'update_cust': update_cust
+        }
+        return render(request, 'update_customer.html', context)
 
 
 

@@ -22,11 +22,8 @@
         </div>
         <br>
         <a href="{% url 'home' %}" class="btn btn-outline-primary btn-block rounded-pill">Back</a>
+        <a href="{% url 'update_customer' customer_record.passport_no %}" class="btn btn-outline-success btn-block rounded-pill">Update</a>
         <a href="{% url 'customer_delete' customer_record.passport_no %}" class="btn btn-outline-danger btn-block rounded-pill">Delete</a>
-
-
-
-
     </div>
 </form>
 {% endif %}
