@@ -71,6 +71,34 @@ def customer_delete(request, pk):
        
        return redirect('home')
  
+def add_customer(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            # Retrieve form data
+            passport_no = request.POST['passport_no']
+            first_name = request.POST['first_name']
+            last_name = request.POST['last_name']
+            email = request.POST['email']
+            phone = request.POST['phone']
+            city = request.POST['city']
+            address = request.POST['address']
+            zipcode = request.POST['zipcode']
+
+            # Create a new Record instance
+            record = Record(
+                passport_no=passport_no,
+                first_name=first_name,
+                last_name=last_name,
+                email=email,
+                phone=phone,
+                city=city,
+                address=address,
+                zipcode=zipcode
+            )
+            record.save()
+            return redirect('home') 
+
+        return render(request, 'add_customer.html')
 
 
 
