@@ -10,33 +10,33 @@
         <div class="table-responsive">
             <table class="table table-striped align-middle table-bordered border-secondary">
                 <thead class="thead-dark bg-info">
-                <tr>
-                    <th scope="col">Passport No</th>
-                    <th scope="col">First Name</th>
-                    <th scope="col">Last Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Phone</th>
-                    <th scope="col">City</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">Zipcode</th>
-                </tr>
-            </thead>
-            <tbody >
-                {% for record in records %}
-                <tr id="row">
-                    <td><a href="{% url 'customer_record' record.passport_no %}">{{ record.passport_no }}</a></td>
-                    <td>{{ record.first_name }}</td>
-                    <td>{{ record.last_name }}</td>
-                    <td>{{ record.email }}</td>
-                    <td>{{ record.phone }}</td>
-                    <td>{{ record.city }}</td>
-                    <td>{{ record.address }}</td>
-                    <td>{{ record.zipcode }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                    <tr>
+                        <th scope="col">Passport No<input type="text" id="filter-passport" oninput="filterTable()"></th>
+                        <th scope="col">First Name<input type="text" id="filter-first-name" oninput="filterTable()"></th>
+                        <th scope="col">Last Name<input type="text" id="filter-last-name" oninput="filterTable()"></th>
+                        <th scope="col">Email<input type="text" id="filter-email" oninput="filterTable()"></th>
+                        <th scope="col">Phone<input type="text" id="filter-phone" oninput="filterTable()"></th>
+                        <th scope="col">City<input type="text" id="filter-city" oninput="filterTable()"></th>
+                        <th scope="col">Address<input type="text" id="filter-address" oninput="filterTable()"></th>
+                        <th scope="col">Zipcode<input type="text" id="filter-zipcode" oninput="filterTable()"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in records %}
+                    <tr id="row">
+                        <td><a href="{% url 'customer_record' record.passport_no %}">{{ record.passport_no }}</a></td>
+                        <td>{{ record.first_name }}</td>
+                        <td>{{ record.last_name }}</td>
+                        <td>{{ record.email }}</td>
+                        <td>{{ record.phone }}</td>
+                        <td>{{ record.city }}</td>
+                        <td>{{ record.address }}</td>
+                        <td>{{ record.zipcode }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </form>
 {% endif %}
