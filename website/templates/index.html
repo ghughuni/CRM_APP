@@ -2,10 +2,11 @@
 {% block title %}Homepage{% endblock %}
 
 {% block content %}
+{% load bootstrap_pagination %}
 {% if user.is_authenticated %}
 <form method="POST">
     {% csrf_token %}
-    <div class="container py-5 my-5 bg-white rounded">
+    <div class="container py-4 my-4 bg-white rounded">
         <h1 class="text-primary text-center fw-bolder p-2">Customer relationship management (CRM)</h1>
         <div class="table-responsive">
             <table class="table table-striped align-middle table-bordered border-secondary">

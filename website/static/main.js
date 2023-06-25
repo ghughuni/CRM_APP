@@ -1,3 +1,4 @@
+// filtering functionality
 function filterTable() {
   let filterPassport = document.getElementById("filter-passport").value.toUpperCase();
   let filterFirstName = document.getElementById("filter-first-name").value.toUpperCase();

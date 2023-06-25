@@ -4,18 +4,26 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from .models import Record
 from django.urls import reverse
+from django.core.paginator import Paginator
 
 def home(request):
-   records = Record.objects.all().order_by('-created_at')
-   context = {
+    record_list = Record.objects.all().order_by('-created_at')
+    paginator = Paginator(record_list, 10)  
+    page = request.GET.get('page')
+    records = paginator.get_page(page)
+
+    context = {
         'records': records,
     }
-   
-   return render(request, "home.html", context)
+
+    return render(request, "home.html", context)
 
 
 def index(request):
-   records = Record.objects.all().order_by('-created_at')
+   record_list = Record.objects.all().order_by('-created_at')
+   paginator = Paginator(record_list, 10)  
+   page = request.GET.get('page')
+   records = paginator.get_page(page)
    if request.method == 'POST':
       username = request.POST['username']
       password = request.POST['password']
@@ -88,20 +96,23 @@ def add_customer(request):
             city = request.POST['city']
             address = request.POST['address']
             zipcode = request.POST['zipcode']
-
+            # Check if customer already exists
+            if Record.objects.filter(passport_no=passport_no).exists():
+                messages.error(request, 'Customer with this passport number already exists.')
+            else:
             # Create a new Record instance
-            record = Record(
-                passport_no=passport_no,
-                first_name=first_name,
-                last_name=last_name,
-                email=email,
-                phone=phone,
-                city=city,
-                address=address,
-                zipcode=zipcode
-            )
-            record.save()
-            return redirect('home') 
+                record = Record(
+                    passport_no=passport_no,
+                    first_name=first_name,
+                    last_name=last_name,
+                    email=email,
+                    phone=phone,
+                    city=city,
+                    address=address,
+                    zipcode=zipcode
+                )
+                record.save()
+                return redirect('home') 
 
         return render(request, 'add_customer.html')
 
