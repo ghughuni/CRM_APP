@@ -2,13 +2,47 @@
 {% block title %}Homepage{% endblock %}
 
 {% block content %}
-
+{% if user.is_authenticated %}
+<form method="POST">
+    {% csrf_token %}
+    <div class="container py-5 my-5 bg-white rounded">
+        <h1 class="text-primary text-center fw-bolder p-2">Customer relationship management (CRM)</h1>
+        <div class="table-responsive">
+            <table class="table table-striped align-middle table-bordered border-secondary">
+                <thead class="thead-dark bg-info">
+                    <tr>
+                        <th scope="col">Passport No<input type="text" id="filter-passport" oninput="filterTable()"></th>
+                        <th scope="col">First Name<input type="text" id="filter-first-name" oninput="filterTable()"></th>
+                        <th scope="col">Last Name<input type="text" id="filter-last-name" oninput="filterTable()"></th>
+                        <th scope="col">Email<input type="text" id="filter-email" oninput="filterTable()"></th>
+                        <th scope="col">Phone<input type="text" id="filter-phone" oninput="filterTable()"></th>
+                        <th scope="col">City<input type="text" id="filter-city" oninput="filterTable()"></th>
+                        <th scope="col">Address<input type="text" id="filter-address" oninput="filterTable()"></th>
+                        <th scope="col">Zipcode<input type="text" id="filter-zipcode" oninput="filterTable()"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in records %}
+                    <tr id="row">
+                        <td><a href="{% url 'customer_record' record.passport_no %}">{{ record.passport_no }}</a></td>
+                        <td>{{ record.first_name }}</td>
+                        <td>{{ record.last_name }}</td>
+                        <td>{{ record.email }}</td>
+                        <td>{{ record.phone }}</td>
+                        <td>{{ record.city }}</td>
+                        <td>{{ record.address }}</td>
+                        <td>{{ record.zipcode }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>
+{% else %}
 <div class="col-md-6 offset-md-3 bg-white p-3 rounded">
     <h1 class="text-center">Login</h1>
-    <p class="text-center text-danger"></p>
-    
-        
-        
+    <p class="text-center text-danger"></p>   
     <form method="POST" action="{% url 'index' %}">
         {% csrf_token %}
         <form>
@@ -32,5 +66,5 @@
 
     </form>
 </div>
-
+{% endif %}
 {% endblock %}

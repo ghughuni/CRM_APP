@@ -6,7 +6,7 @@ from .models import Record
 from django.urls import reverse
 
 def home(request):
-   records=Record.objects.all()
+   records = Record.objects.all().order_by('-created_at')
    context = {
         'records': records,
     }
@@ -15,6 +15,7 @@ def home(request):
 
 
 def index(request):
+   records = Record.objects.all().order_by('-created_at')
    if request.method == 'POST':
       username = request.POST['username']
       password = request.POST['password']
@@ -27,7 +28,10 @@ def index(request):
          messages.success(request, "ERROR, Please Try Again...")
          return redirect('index')
    else:
-      return render(request, "index.html", {})
+      context = {
+        'records': records,
+    }
+      return render(request, "index.html", context)
 
 
 def register(request):
