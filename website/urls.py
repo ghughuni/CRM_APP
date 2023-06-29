@@ -7,7 +7,8 @@ from .views import (
     customer_record,
     customer_delete,
     add_customer,
-    update_customer
+    update_customer,
+    export_to_excel
     )
 
 urlpatterns = [
@@ -19,6 +20,6 @@ urlpatterns = [
     path('customer_delete/<str:pk>', customer_delete, name='customer_delete'),
     path('add_customer/', add_customer, name='add_customer'),
     path('update_customer/<str:pk>', update_customer, name='update_customer'),
-
+    path('export/', export_to_excel, name='export_to_excel'),
 
 ]

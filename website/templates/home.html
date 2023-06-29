@@ -3,24 +3,26 @@
 
 {% block content %}
 {% if user.is_authenticated %}
+<div class="d-flex justify-content-between align-items-center">
 <form method="GET">
     {% csrf_token %}
     <!-- Add the filter options -->
     <span class="text-light">Show: </span>
     <select name="filter" onchange="this.form.submit()">
-        <option value="All" {% if filter_option == 'All' %}selected{% endif %}> - All -</option>
+        <option value="All" {% if filter_option == 'All' %}selected{% endif %}>- All -</option>
         <option value="10" {% if filter_option == '10' %}selected{% endif %}>- 10 -</option>
         <option value="20" {% if filter_option == '20' %}selected{% endif %}>- 20 -</option>
     </select>
 </form>
-
+<a class="btn btn-primary" href="{% url 'export_to_excel' %}">Export to Excel</a>
+</div>
 <form method="POST">
     {% csrf_token %}
     <div class="container py-4 my-4 bg-white rounded">
-        <h1 class="text-primary text-center fw-bolder p-2">Customer relationship management (CRM)</h1>
+        <h3 class="text-primary text-center fw-bolder p-1">Customer relationship management (CRM)</h3>
         <div class="table-responsive" style="height: 550px; overflow-y: scroll;">
             <table class="table table-striped align-middle table-bordered border-secondary">
-                <thead class="thead-dark bg-info">
+                <thead class="thead-dark bg-info sticky-top">
                     <tr>
                         <th scope="col">Passport No<input type="text" id="filter-passport" oninput="filterTable()"></th>
                         <th scope="col">First Name<input type="text" id="filter-first-name" oninput="filterTable()"></th>

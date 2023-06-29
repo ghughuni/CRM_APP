@@ -4,7 +4,10 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from .models import Record
 from django.urls import reverse
-from django.core.paginator import Paginator
+import pandas as pd
+import xlsxwriter
+from django.http import HttpResponse
+from io import BytesIO 
 
 def home(request):
     record_list = Record.objects.all().order_by('-created_at')
@@ -156,3 +159,46 @@ def update_customer(request, pk):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+def export_to_excel(request):
+    records = Record.objects.all()
+    data = {
+        'Passport No': [],
+        'First Name': [],
+        'Last Name': [],
+        'Email': [],
+        'Phone': [],
+        'City': [],
+        'Address': [],
+        'Zipcode': []
+    }
+
+    for record in records:
+        data['Passport No'].append(record.passport_no)
+        data['First Name'].append(record.first_name)
+        data['Last Name'].append(record.last_name)
+        data['Email'].append(record.email)
+        data['Phone'].append(record.phone)
+        data['City'].append(record.city)
+        data['Address'].append(record.address)
+        data['Zipcode'].append(record.zipcode)
+
+    df = pd.DataFrame(data)
+
+    # Create a BytesIO buffer to hold the Excel file
+    excel_buffer = BytesIO()
+
+    # Create the Excel writer using xlsxwriter.Workbook
+    with pd.ExcelWriter(excel_buffer, engine='xlsxwriter') as writer:
+        # Write the DataFrame to the Excel file
+        df.to_excel(writer, index=False, sheet_name='Table Data')
+
+    # Seek to the beginning of the buffer
+    excel_buffer.seek(0)
+
+    # Create the HTTP response with the Excel file
+    response = HttpResponse(content_type='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="Customers_data.xlsx"'
+    response.write(excel_buffer.getvalue())
+
+    return response
