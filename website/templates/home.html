@@ -2,13 +2,23 @@
 {% block title %}Homepage{% endblock %}
 
 {% block content %}
-{% load bootstrap_pagination %}
 {% if user.is_authenticated %}
+<form method="GET">
+    {% csrf_token %}
+    <!-- Add the filter options -->
+    <span class="text-light">Show: </span>
+    <select name="filter" onchange="this.form.submit()">
+        <option value="All" {% if filter_option == 'All' %}selected{% endif %}> - All -</option>
+        <option value="10" {% if filter_option == '10' %}selected{% endif %}>- 10 -</option>
+        <option value="20" {% if filter_option == '20' %}selected{% endif %}>- 20 -</option>
+    </select>
+</form>
+
 <form method="POST">
     {% csrf_token %}
     <div class="container py-4 my-4 bg-white rounded">
         <h1 class="text-primary text-center fw-bolder p-2">Customer relationship management (CRM)</h1>
-        <div class="table-responsive">
+        <div class="table-responsive" style="height: 550px; overflow-y: scroll;">
             <table class="table table-striped align-middle table-bordered border-secondary">
                 <thead class="thead-dark bg-info">
                     <tr>
@@ -37,12 +47,6 @@
                     {% endfor %}
                 </tbody>
             </table>
-        </div>
-        <!-- Pagination -->
-        <div class="pagination d-flex justify-content-center">
-            <ul class="pagination">
-                {% bootstrap_paginate records %}
-            </ul>
         </div>
     </div>
 </form>

@@ -8,12 +8,17 @@ from django.core.paginator import Paginator
 
 def home(request):
     record_list = Record.objects.all().order_by('-created_at')
-    paginator = Paginator(record_list, 10)  
-    page = request.GET.get('page')
-    records = paginator.get_page(page)
+    filter_option = request.GET.get('filter')
+    if filter_option == '10':
+        record_list = record_list[:10]  
+    elif filter_option == '20':
+        record_list = record_list[:20]
+    elif filter_option == 'All':
+        pass  # Show all customers
 
     context = {
-        'records': records,
+        'records': record_list,
+        'filter_option': filter_option
     }
 
     return render(request, "home.html", context)
@@ -21,9 +26,14 @@ def home(request):
 
 def index(request):
    record_list = Record.objects.all().order_by('-created_at')
-   paginator = Paginator(record_list, 10)  
-   page = request.GET.get('page')
-   records = paginator.get_page(page)
+   filter_option = request.GET.get('filter')
+   if filter_option == '10':
+       record_list = record_list[:10]  
+   elif filter_option == '20':
+        record_list = record_list[:20]
+   elif filter_option == 'All':
+        pass  # Show all customers
+   
    if request.method == 'POST':
       username = request.POST['username']
       password = request.POST['password']
@@ -37,7 +47,8 @@ def index(request):
          return redirect('index')
    else:
       context = {
-        'records': records,
+        'records': record_list,
+        'filter_option': filter_option
     }
       return render(request, "index.html", context)
 
