@@ -12,6 +12,7 @@
         <option value="All" {% if filter_option == 'All' %}selected{% endif %}>- All -</option>
         <option value="10" {% if filter_option == '10' %}selected{% endif %}>- 10 -</option>
         <option value="20" {% if filter_option == '20' %}selected{% endif %}>- 20 -</option>
+        <option value="30" {% if filter_option == '30' %}selected{% endif %}>- 30 -</option>
     </select>
 </form>
 <a class="btn btn-primary" href="{% url 'export_to_excel' %}">Export to Excel</a>

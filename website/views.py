@@ -16,6 +16,8 @@ def home(request):
         record_list = record_list[:10]  
     elif filter_option == '20':
         record_list = record_list[:20]
+    elif filter_option == '30':
+        record_list = record_list[:30]
     elif filter_option == 'All':
         pass  # Show all customers
 
@@ -34,6 +36,8 @@ def index(request):
        record_list = record_list[:10]  
    elif filter_option == '20':
         record_list = record_list[:20]
+   elif filter_option == '30':
+        record_list = record_list[:30]
    elif filter_option == 'All':
         pass  # Show all customers
    
@@ -84,12 +88,15 @@ def register(request):
 
 
 def customer_record(request, pk):
-   if request.user.is_authenticated:
-       customer_record =Record.objects.get(passport_no=pk) 
-       context = {
-           'customer_record': customer_record,
-        }
-       return render(request, "record.html", context)
+   try:
+        if request.user.is_authenticated:
+            customer_record =Record.objects.get(passport_no=pk) 
+            context = {
+                'customer_record': customer_record,
+                }
+            return render(request, "record.html", context)
+   except:
+        return render(request, "error.html")
 
 def customer_delete(request, pk):
     if request.user.is_authenticated:
