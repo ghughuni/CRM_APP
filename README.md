@@ -3,5 +3,5 @@ Used Tools: --> Front-end (HTML, CSS, Bootstrap, JavaScript) to design the respo
 
 # Current Features
 
-Only authorized users can access it (view, create, update, delete and filter customers)
+Only authorized users can access it (view, create, update, delete, filter customers and export_to_excel)
 
