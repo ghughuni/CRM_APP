@@ -5,3 +5,5 @@ Used Tools: --> Front-end (HTML, CSS, Bootstrap, JavaScript) to design the respo
 
 Only authorized users can access it (view, create, update, delete, filter customers and export_to_excel)
 
+# Screenshots
+![about](https://github.com/ghughuni/CRM_APP/assets/122463688/91fa1a7a-603b-4a70-9c13-08eff068d6e5)
