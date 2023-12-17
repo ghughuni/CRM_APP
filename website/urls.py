@@ -8,7 +8,8 @@ from .views import (
     customer_delete,
     add_customer,
     update_customer,
-    export_to_excel
+    export_to_excel,
+    analysis,
     )
 
 urlpatterns = [
@@ -21,5 +22,6 @@ urlpatterns = [
     path('add_customer/', add_customer, name='add_customer'),
     path('update_customer/<str:pk>', update_customer, name='update_customer'),
     path('export/', export_to_excel, name='export_to_excel'),
+    path('analysis/', analysis, name='analysis'),
 
 ]

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Analysis{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="container py-4 my-2 bg-white rounded">
+    <div class="row justify-content-center align-items-center py-4">
+        <div class="col-12 mb-5">
+            <img class="test img-fluid m-auto d-block" src="data:image/png;base64,{{ image_base64 }}" alt="City Analysis Chart">
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

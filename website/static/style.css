@@ -5,13 +5,16 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     width: 100vw;
-    height: 100vh;
+    height: 100vw;
 }
 
 .navbar {
     background-color: #e3f2fd;
 }
 
+.test{
+    height: 100vh !important;
+}
 
 @media (max-width: 768px) {
     .background-image {

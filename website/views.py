@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.http import HttpResponse
 from django.contrib.auth.models import User
 from .models import Record
 from django.urls import reverse
@@ -8,6 +9,8 @@ import pandas as pd
 import xlsxwriter
 from django.http import HttpResponse
 from io import BytesIO 
+import matplotlib.pyplot as plt
+import base64
 
 def home(request):
     record_list = Record.objects.all().order_by('-created_at')
@@ -161,7 +164,35 @@ def update_customer(request, pk):
         }
         return render(request, 'update_customer.html', context)
 
+def analysis(request):
+    records = Record.objects.all()
+    city_counts = {}
+    for record in records:
+        city = record.city
+        city_counts[city] = city_counts.get(city, 0) + 1
+    
+    # Create a bar chart
+    fig, ax = plt.subplots(figsize=(10, 6))
+    cities = list(city_counts.keys())
+    counts = list(city_counts.values())
+    ax.bar(cities, counts)
+    
+    ax.set_xticklabels(cities, rotation=45, ha='right')
+    
+    ax.set_xlabel('Cities')
+    ax.set_ylabel('Number of Custumers')
+    ax.set_title('City Analysis')
+    
+    image_stream = BytesIO()
+    plt.savefig(image_stream, format='png')
+    image_stream.seek(0)
+    image_base64 = base64.b64encode(image_stream.read()).decode('utf-8')
 
+    context = {
+         'image_base64': image_base64
+         }
+
+    return render(request, "analysis.html", context)
 
 def logout_view(request):
     logout(request)
